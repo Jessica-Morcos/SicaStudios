@@ -2,7 +2,7 @@ import React, { useRef, Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Environment } from "@react-three/drei";
 import { motion, useInView } from "framer-motion";
-import PolaroidModel from "./Polaroidmodel";
+import PolaroidModel from "./PolaroidModel";
 import PolaroidModelSmall from "./PolaroidModelSmall";
 export default function Hero() {
   const cameraPosition = [-26.331, 0.289, 48.012];
