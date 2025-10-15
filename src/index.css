@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+/* --- Custom Scrollbar (dot-style) --- */
+::-webkit-scrollbar {
+  width: 6px; /* thin scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; /* fully transparent background */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: black;       /* black thumb */
+  border-radius: 50px;           /* rounded into a dot */
+  border: 2px solid transparent; /* smooth edge */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #1c0f2f; /* purple accent on hover (optional) */
+}
+
+/* Firefox support */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: black transparent;
+}
+
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+  font-family: "Futura PT", sans-serif !important;
+  scroll-behavior: smooth;
+  
+  will-change: transform;
+  overflow-x: hidden;
+
+}
+
+
+
+section {
+  scroll-snap-align: start;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+/* add to index.css if you want an animation effect */
+
+
+.animate-scroll {
+  display: flex;
+  width: max-content;
+  animation: scroll 25s linear infinite;
+}
+.marquee {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.track {
+  display: flex;
+  width: calc(250px * 24); /* rough large width, prevents wrap */
+  animation: scroll 40s linear infinite;
+  will-change: transform;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-33.333%);
+  }
+}
