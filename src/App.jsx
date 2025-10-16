@@ -1,4 +1,4 @@
-import React, { useRef, useEffect , useLayoutEffect  } from "react";
+import React, { useRef, useEffect, useLayoutEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -21,21 +21,23 @@ import SicaStudios from "./components/SS";
 function ScrollToTop() {
   const { pathname } = useLocation();
 
-  useLayoutEffect(() => {
-    window.scrollTo(0, 0);
+  useEffect(() => {
+    // Force scroll to top immediately
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "instant"
+    });
   }, [pathname]);
 
   return null;
 }
 
-
-
-
 function AppContent() {
   const scrollY = useRef(0);
   const location = useLocation();
 
-  // ✅ Single scroll listener (not re-added every render)
+  // Single scroll listener (not re-added every render)
   useEffect(() => {
     const handleScroll = () => {
       scrollY.current = window.scrollY;
@@ -44,7 +46,7 @@ function AppContent() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // ✅ Hide sidebars on all project pages (Huskd, Polaroid, etc.)
+  // Hide sidebars on all project pages
   const hiddenRoutes = ["/huskd", "/polaroid", "/ribbitsrobots", "/sicastudios"];
   const hideSidebars = hiddenRoutes.includes(location.pathname.toLowerCase());
 
@@ -82,7 +84,7 @@ function AppContent() {
   );
 }
 
-// ✅ Main App wrapper
+// Main App wrapper
 export default function App() {
   return (
     <Router>

@@ -14,11 +14,11 @@ const isTransparent = transparentRoutes.includes(location.pathname.toLowerCase()
 
   return (
     <nav
-      className={`w-[80%] h-[5rem] mx-auto font-futura rounded-[100rem] flex items-center justify-between border border-[#dcdafc]/60 transition-all duration-300
+      className={`w-[80%] h-[5rem] mx-auto font-futura rounded-[100rem] flex items-center justify-between  transition-all duration-300
     ${
       isTransparent
         ? "bg-transparent mt-0 mb-0 absolute top-0 left-1/2 -translate-x-1/2 z-[999]"
-        : "bg-[#DFDEFF] my-[3rem] relative"
+        : "bg-[#DFDEFF]  my-[3rem] relative"
     }`}
     >
       {/* Left: Logo + Tagline */}

@@ -6,7 +6,7 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent; /* fully transparent background */
+  background: transparent !important; /* fully transparent background */
 }
 
 ::-webkit-scrollbar-thumb {
@@ -29,14 +29,14 @@
 html, body {
   margin: 0;
   padding: 0;
-  background-color: #ffffff;
+  
   font-family: "Futura PT", sans-serif !important;
   scroll-behavior: smooth;
-  
-  will-change: transform;
+  scrollbar-gutter: stable overlay; 
   overflow-x: hidden;
-
+  will-change: transform;
 }
+
 
 
 
