@@ -1,14 +1,12 @@
 import React, { useState, useCallback } from "react";
 import { motion, useInView } from "framer-motion";
 import { Document, Page, pdfjs } from "react-pdf";
-import pdfWorker from "pdfjs-dist/build/pdf.worker.min.mjs?url";
 
-import HeaderArt from "../assets/HeaderArt.svg";
+
+import HeaderArt from "../assets/HeaderArt.png";
 import HuskdLockup from "../assets/HuskdLockup.svg";
 import HuskdCase from "../assets/HuskdCase.pdf";
-
-// ✅ PDF worker setup
-pdfjs.GlobalWorkerOptions.workerSrc = pdfWorker;
+const huskdImages = import.meta.glob("../assets/HuskdCase/*.png", { eager: true });
 
 export default function Huskd() {
   const [numPages, setNumPages] = useState(null);
@@ -26,19 +24,19 @@ export default function Huskd() {
 
   return (
     <main className="w-full bg-white text-[#2a2a2a] font-futura">
-    {/* HEADER IMAGE */}
-<section className="relative w-full bg-white">
-  <img
+ <section className="relative w-full h-screen overflow-hidden">
+  <motion.img
     src={HeaderArt}
     alt="HUSKD header visual"
-    className=" h-full object-cover"
-    loading="eager"
+    className="absolute inset-0 w-full h-full "
+    initial={{ opacity: 0, scale: 1.1 }}
+    animate={{ opacity: 1, scale: 1 }}
+    transition={{ duration: 1, ease: "easeOut" }}
   />
 </section>
-
 {/* HUSKD.CO LOGO + TAGLINE */}
 <section className="bg-[#F3F8EE] py-10 md:py-14 text-center">
-  <motion.div
+  <motion.image
     initial={{ opacity: 0, y: 30 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.6, ease: "easeOut" }}
@@ -49,10 +47,8 @@ export default function Huskd() {
       alt="HUSKD.CO Logo"
       className="w-full md:w-[70%] lg:w-[50%] h-auto mb-3 object-contain"
     />
-    <p className="uppercase tracking-[0.2em] text-[#5b6c5a] text-sm">
-      Stripped to the goodness
-    </p>
-  </motion.div>
+
+  </motion.image>
 </section>
 
 
@@ -110,37 +106,34 @@ export default function Huskd() {
         </div>
       </section>
 
-      {/* PDF SECTION */}
+
       <section className="bg-[#F9FAF9] py-16">
-        <div className="mx-auto max-w-6xl px-5 text-center">
+        <div className="mx-auto  px-5 text-center">
           {error && (
             <p className="text-red-500 mb-6">
               {error} — please check your PDF file path.
             </p>
           )}
 
-          <Document
-            file={HuskdCase}
-            onLoadSuccess={onLoadSuccess}
-            onLoadError={onLoadError}
-            loading={<p className="text-gray-500 py-10">Loading PDF…</p>}
-          >
-            {numPages &&
-              Array.from({ length: numPages }, (_, i) => (
-                <div key={i} className="mb-12 flex justify-center">
-                  <Page
-                    pageNumber={i + 1}
-                    width={
-                      typeof window !== "undefined"
-                        ? Math.min(window.innerWidth )
-                        : 800
-                    }
-                    renderTextLayer={false}
-                    renderAnnotationLayer={false}
-                  />
-                </div>
-              ))}
-          </Document>
+  ``       {/* CASE STUDY IMAGES */}
+<section className="bg-[#F9FAF9] py-16">
+  <div className="mx-auto  px-5 text-center">
+    {Object.values(huskdImages).map((img, i) => (
+      <div key={i} className="mb-12 flex justify-center">
+        <motion.img
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          src={img.default}
+          alt={`Huskd case page ${i + 1}`}
+          className="w-full h-auto rounded-lg shadow-sm"
+          loading="lazy"
+        />
+      </div>
+    ))}
+  </div>
+</section>
+
         </div>
       </section>
     </main>
