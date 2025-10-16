@@ -16,17 +16,18 @@ export default function Huskd() {
 
   return (
     <main className="w-full bg-white text-[#2a2a2a] font-futura">
-      {/* HEADER */}
-      <section className="relative w-full h-screen overflow-hidden">
-        <motion.img
-          src={HeaderArt}
-          alt="HUSKD header visual"
-          className="absolute inset-0 w-full h-full"
-          initial={{ opacity: 0, scale: 1.1 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-        />
-      </section>
+     {/* HEADER */}
+    <section className="relative w-full overflow-hidden flex justify-center items-center bg-white">
+      <motion.img
+        src={HeaderArt}
+        alt="HUSKD header visual"
+        className="w-full h-auto object-contain"
+        initial={{ opacity: 0, scale: 1.05 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1, ease: "easeOut" }}
+      />
+    </section>
+
 
       {/* LOGO */}
       <section className="bg-[#F3F8EE] py-10 md:py-14 text-center">

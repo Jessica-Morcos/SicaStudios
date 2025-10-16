@@ -17,11 +17,11 @@ export default function SS() {
   return (
     <main className="w-full bg-white text-[#2a2a2a] font-futura">
       {/* HEADER */}
-      <section className="relative w-full h-screen overflow-hidden">
+       <section className="relative w-full overflow-hidden flex justify-center items-center bg-white">
         <motion.img
           src={HeaderArt}
           alt="SS header visual"
-          className="absolute inset-0 w-full h-full"
+          className="w-full h-auto object-contain"
           initial={{ opacity: 0, scale: 1.1 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, ease: "easeOut" }}
