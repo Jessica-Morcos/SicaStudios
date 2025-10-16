@@ -4,6 +4,7 @@ import { OrbitControls, Environment } from "@react-three/drei";
 import { motion, useInView } from "framer-motion";
 import PolaroidModel from "./PolaroidModel";
 import PolaroidModelSmall from "./PolaroidModelSmall";
+
 export default function Hero() {
   const cameraPosition = [-26.331, 0.289, 48.012];
   const heroRef = useRef(null);
@@ -62,7 +63,7 @@ export default function Hero() {
             solver.
           </h1>
         </div>
-        <div className="absolute hidden portrait:block w-full  z-10" style={{ height: "100vh" }}>
+        {/* <div className="absolute hidden portrait:block w-full  z-10" style={{ height: "100vh" }}>
         <Canvas
           shadows
           frameloop="always"
@@ -76,7 +77,7 @@ export default function Hero() {
             far: 1000,
           }}
         >
-          {/* Softer, performant lighting */}
+  
           <ambientLight intensity={2} />
           <directionalLight
             position={[3, 9, 2]}
@@ -97,7 +98,7 @@ export default function Hero() {
 
           <OrbitControls enableZoom={false} enablePan={false} enableRotate={false} />
         </Canvas>
-      </div>
+      </div> */}
       </section>
 
 
