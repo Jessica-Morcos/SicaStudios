@@ -43,6 +43,63 @@ export default function Huskd() {
           />
         </motion.div>
       </section>
+      {/* DELIVERABLES / CHALLENGES / SOLUTIONS */}
+      <section className="py-12 font-futura">
+        <div className="mx-auto max-w-6xl px-5 grid grid-cols-1 md:grid-cols-3 gap-10">
+          
+          {/* DELIVERABLES */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className=""
+          >
+            <h2 className="text-[1.5rem] font-bold tracking-[0.25em]">
+              DELIVERABLES
+            </h2>
+            <ul className="mt-3 text-m leading-7">
+              <li>• Brand Packaging Design</li>
+              <li>• Character Design</li>
+              <li>• Coconut Water &amp; Coconut Pudding Packaging</li>
+            </ul>
+          </motion.div>
+
+          {/* CHALLENGES */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
+          >
+            <h2 className="text-[1.5rem] font-bold tracking-[0.25em]">
+              CHALLENGES
+            </h2>
+            <p className="mt-3 text-m leading-7 text-gray-700">
+              Create two cohesive packaging designs—Coconut Water and Coconut
+              Pudding—that feel playful, refreshing, and approachable. Use a
+              specific green (#9DC95A) across both, keeping water packaging with
+              coconut imagery, while pudding packaging uses only text-based labeling.
+            </p>
+          </motion.div>
+
+          {/* SOLUTIONS */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+          >
+            <h2 className="text-[1.5rem] font-bold tracking-[0.25em]">
+              SOLUTIONS
+            </h2>
+            <p className="mt-3 text-m leading-7 text-gray-700">
+              Designed a friendly coconut character that unifies both products.
+              Coconut Water uses bright, tropical illustrations and bold freshness;
+              Coconut Pudding focuses on minimal, type-driven packaging. Both share
+              the same palette and rhythm for unity.
+            </p>
+          </motion.div>
+
+        </div>
+      </section>
 
       {/* CASE STUDY IMAGES */}
       <section className="bg-[#F9FAF9] py-16">
