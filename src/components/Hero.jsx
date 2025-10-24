@@ -40,7 +40,7 @@ export default function Hero() {
           <Suspense fallback={null}>
             <PolaroidModel
               scale={[4, 4, 4]}
-              position={[-5, 10, 0]}
+              position={[-6, 10, 0]}
               rotation={[0.05, -0.05, 0]}
               trigger={isInView}
             />
@@ -73,7 +73,7 @@ export default function Hero() {
         id="about"
         className="relative portrait:h-[50vh] h-[90vh] bg-transparent flex items-center justify-center overflow-hidden"
       >
-        <div className="relative portrait:mx-[1rem] portrait:mt-[4rem] top-[-15%] right-[15rem] portrait:right-[0rem] z-30 max-w-[25rem] flex flex-col landscape:items-start  ">
+        <div className="relative portrait:mx-[1rem] portrait:mt-[4rem] top-[-15%] right-[18rem] portrait:right-[0rem] z-30 max-w-[25rem] flex flex-col landscape:items-start  ">
           <div className="flex flex-col w-full">
             <h2 className="text-[2rem] font-bold tracking-[0.5rem] portrait:px-[1rem] ">
               About Me
