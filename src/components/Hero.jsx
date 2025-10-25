@@ -28,7 +28,7 @@ export default function Hero() {
           }}
         >
           {/* Softer, performant lighting */}
-          <ambientLight intensity={2} />
+          <ambientLight intensity={4} />
           <directionalLight
             position={[3, 5, 2]}
             intensity={1.4}

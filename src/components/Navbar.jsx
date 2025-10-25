@@ -18,7 +18,7 @@ const isTransparent = transparentRoutes.includes(location.pathname.toLowerCase()
     ${
       isTransparent
         ? "bg-transparent mt-0 mb-0 absolute top-0 left-1/2 -translate-x-1/2 z-[999]"
-        : "bg-[#DFDEFF]  my-[3rem] relative"
+        : "bg-[#DFDEFF]  my-[1rem] relative"
     }`}
     >
       {/* Left: Logo + Tagline */}
