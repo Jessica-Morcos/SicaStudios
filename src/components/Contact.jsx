@@ -51,9 +51,7 @@ export default function Contact() {
         {/* Right: Text */}
         <div className="w-full md:w-1/2 portrait:p-[0.5rem] text-center portrait:mr-0 mr-[5rem]">
           <p className="text-gray-800 leading-[2.5rem] portrait:leading-[1.5rem] landscape:mr-[10rem] portrait:tracking-normal tracking-[0.25rem] portrait:text-[1.2rem] text-[1.4rem]">
-            Have an idea, project, or opportunity in mind? <br />
-            Reach out! I’m always excited to chat about <br />
-            tech, design, and creating better user experiences.
+            Got something in mind? <br/> I’m always up for talking tech, design, and ways to make experiences better.
           </p>
          
         </div>
