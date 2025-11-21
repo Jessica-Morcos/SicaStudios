@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import { motion } from "framer-motion";
-import PolaroidHeaderVideo from "../assets/PolaroidHeader.mp4";
+import PolaroidHeaderVideo from "../assets/polaroidHeader.mp4";
 import { Download } from "lucide-react";
 
 export default function Polaroid() {
