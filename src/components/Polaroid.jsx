@@ -57,14 +57,14 @@ export default function Polaroid() {
           from-[#909090]
           via-[#d5d5d5]
           to-[#ececec]
-          min-h-screen
+          min-h-[90dvh]
           pt-20
-          pb-40
+          
         "
       >
 
         {/* POLAROID INFO UI SECTION */}
-        <section className="w-full px-6">
+        <section className="w-full px-3">
           <div className="max-w-5xl mx-auto">
 
             {/* Description */}
@@ -112,13 +112,13 @@ export default function Polaroid() {
 
           </div>
         </section>
-      <footer className="bottom-0 text-center py-[1rem] ">
+      
+      </div>
+    <footer className="bottom-0 text-center py-[1rem] ">
       <p className="text-sm text-gray-600 tracking-wide">
         © {new Date().getFullYear()} Jessica Morcos
       </p>
     </footer>
-      </div>
-    
     </main>
   );
 }
