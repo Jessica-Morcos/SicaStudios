@@ -1,10 +1,11 @@
-import React, { useRef, useEffect, useLayoutEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   useLocation,
 } from "react-router-dom";
+
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Skills from "./components/Skills";
@@ -13,6 +14,7 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import SocialSidebar from "./components/SocialSidebar";
 import SocialSidebarLeft from "./components/SocialSidebarLeft";
+
 import Huskd from "./components/Huskd";
 import Polaroid from "./components/Polaroid";
 import RibbitsRobots from "./components/RibbitsRobots";
@@ -22,12 +24,7 @@ function ScrollToTop() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    // Force scroll to top immediately
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "instant"
-    });
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
   }, [pathname]);
 
   return null;
@@ -37,7 +34,6 @@ function AppContent() {
   const scrollY = useRef(0);
   const location = useLocation();
 
-  // Single scroll listener (not re-added every render)
   useEffect(() => {
     const handleScroll = () => {
       scrollY.current = window.scrollY;
@@ -46,9 +42,13 @@ function AppContent() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Hide sidebars on all project pages
+  // Hide sidebars on project pages
   const hiddenRoutes = ["/huskd", "/polaroid", "/ribbitsrobots", "/sicastudios"];
   const hideSidebars = hiddenRoutes.includes(location.pathname.toLowerCase());
+
+  // ⭐ Hide footer ONLY for Polaroid
+  const hideFooterRoutes = ["/polaroid"];
+  const hideFooter = hideFooterRoutes.includes(location.pathname.toLowerCase());
 
   return (
     <div className="font-sans bg-white text-black relative">
@@ -79,12 +79,12 @@ function AppContent() {
         <Route path="/sicastudios" element={<SicaStudios />} />
       </Routes>
 
-      <Footer />
+      {/* ⭐ Hide footer on Polaroid */}
+      {!hideFooter && <Footer />}
     </div>
   );
 }
 
-// Main App wrapper
 export default function App() {
   return (
     <Router>
