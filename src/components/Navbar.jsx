@@ -20,7 +20,7 @@ export default function Navbar() {
       ${
         isTransparent
           ? "bg-transparent mt-0 mb-0 absolute top-0 left-1/2 -translate-x-1/2 z-[999]"
-          : "bg-[#DFDEFF] my-[1rem] relative"
+          : " my-[1rem] relative"
       }`
       
     }
@@ -81,7 +81,7 @@ export default function Navbar() {
 
       {/* Dropdown Menu (Mobile) */}
       {isOpen && (
-        <div className="absolute top-[5rem] right-0 w-[60%] bg-[#DFDEFF] border border-[#dcdafc]/60 rounded-[1rem] flex flex-col items-center space-y-4 py-4 z-50 shadow-lg animate-fadeIn">
+        <div className="absolute top-[5rem] right-0 w-[60%]  border border-[#dcdafc]/60 rounded-[1rem] flex flex-col items-center space-y-4 py-4 z-50 shadow-lg animate-fadeIn">
           <a
             href="/#about"
             onClick={() => setIsOpen(false)}

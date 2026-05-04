@@ -19,6 +19,7 @@ import Huskd from "./components/Huskd";
 import Polaroid from "./components/Polaroid";
 import RibbitsRobots from "./components/RibbitsRobots";
 import SicaStudios from "./components/SS";
+import IntroAnimation from "./components/IntroAnimation";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -52,6 +53,7 @@ function AppContent() {
 
   return (
     <div className="font-sans bg-white text-black relative">
+      <IntroAnimation />
       {!hideSidebars && (
         <>
           <SocialSidebar />
