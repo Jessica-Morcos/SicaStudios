@@ -1,6 +1,6 @@
-import React, { useRef, Suspense } from "react";
+import React, { useEffect, useRef, Suspense, useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Environment } from "@react-three/drei";
+import { Environment } from "@react-three/drei";
 import { motion, useInView } from "framer-motion";
 import PolaroidModel from "./PolaroidModel";
 
@@ -8,17 +8,53 @@ import PolaroidModel from "./PolaroidModel";
 export default function Hero() {
   const cameraPosition = [-26.331, 0.289, 48.012];
   const heroRef = useRef(null);
-  const isInView = useInView(heroRef, { amount: 0.3, once: true });
+  const isHeroInView = useInView(heroRef, { amount: 0.3 });
+  const [hasScrolledToModel, setHasScrolledToModel] = useState(false);
+  const shouldRenderCanvas = useInView(heroRef, { amount: 0.05, margin: "450px 0px" });
+
+  useEffect(() => {
+    if (hasScrolledToModel) return;
+
+    let frame = null;
+    const triggerPoint = 150;
+
+    const checkScroll = () => {
+      frame = null;
+
+      if (window.scrollY > triggerPoint && isHeroInView) {
+        setHasScrolledToModel(true);
+      }
+    };
+
+    const handleScroll = () => {
+      if (frame !== null) return;
+      frame = window.requestAnimationFrame(checkScroll);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    checkScroll();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (frame !== null) {
+        window.cancelAnimationFrame(frame);
+      }
+    };
+  }, [hasScrolledToModel, isHeroInView]);
 
   return (
     <div className="relative" ref={heroRef}>
       {/* 3D Canvas */}
-      <div className="absolute h-[200vh] portrait:h-[0vh] portrait:hidden w-full px-[5%] z-5">
+      <div className="absolute top-0 h-[200vh] portrait:h-[0vh] portrait:hidden w-full px-[5%] z-5" style={{ pointerEvents: "none" }}>
         <Canvas
+          frameloop={shouldRenderCanvas ? "always" : "demand"}
           shadows
-          frameloop="always"
           dpr={[0.8, 1]}
-          gl={{ antialias: true, powerPreference: "high-performance" }}
+          gl={{
+            antialias: true,
+            powerPreference: "high-performance",
+            preserveDrawingBuffer: false,
+          }}
           performance={{ min: 0.6 }}
           camera={{
             position: cameraPosition,
@@ -42,18 +78,17 @@ export default function Hero() {
               scale={[4, 4, 4]}
               position={[-6, 10, 0]}
               rotation={[0.05, -0.05, 0]}
-              trigger={isInView}
+              trigger={hasScrolledToModel}
             />
           </Suspense>
 
-          <OrbitControls enableZoom={false} enablePan={false} enableRotate={false} />
         </Canvas>
       </div>
 
       {/* Hero Section */}
       <section className="relative h-screen portrait:h-[75vh] bg-transparent flex items-center justify-center overflow-hidden portrait:mr-[0rem] mr-[5rem]">
-        <div className="relative  z-10 left-[20rem] portrait:left-[0rem]  top-[-10%] portrait:top-[-25%]">
-          <h1 className="text-[2.8rem] portrait:text-[2rem]  font-semibold leading-[150%] tracking-[8px] text-center">
+        <div className="relative z-10 left-[20rem] portrait:left-[0rem] top-[-10%] portrait:top-[-25%] flex flex-col items-center gap-6">
+          <h1 className="text-[2.8rem] portrait:text-[2rem] font-semibold leading-[150%] tracking-[8px] text-center">
             Designer.
             <br />
             Creator.
@@ -62,6 +97,12 @@ export default function Hero() {
             <br />
             solver.
           </h1>
+          <a
+            href="#contact"
+            className="px-8 py-3 bg-[#1c0f2f] text-white text-[0.8rem] tracking-[4px] uppercase font-medium rounded-full hover:bg-[#37004A] transition-colors duration-300"
+          >
+            Say Hi
+          </a>
         </div>
        
       </section>
@@ -81,7 +122,7 @@ export default function Hero() {
 
             <motion.div
               initial={{ width: 0, opacity: 0 }}
-              animate={isInView ? { width: "10rem", opacity: 1 } : {}}
+              animate={isHeroInView ? { width: "10rem", opacity: 1 } : {}}
               transition={{ duration: 2, ease: "easeOut" }}
               className="mt-1  h-[0.2rem] bg-[#1c0f2f]"
             />

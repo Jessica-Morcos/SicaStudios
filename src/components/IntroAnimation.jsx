@@ -30,12 +30,10 @@ function TypeLine({ text, delayStart, className }) {
   );
 }
 
-const MIN_MS = 4400;
-const MAX_MS = 22000;
+const MIN_MS = 3800;
 
 export default function IntroAnimation({ onDone }) {
   const { progress } = useProgress();
-  const [minTimePassed, setMinTimePassed] = useState(false);
   const [visible, setVisible] = useState(
     () => !sessionStorage.getItem("introSeen")
   );
@@ -43,7 +41,6 @@ export default function IntroAnimation({ onDone }) {
   const finish = () => {
     setVisible(false);
     sessionStorage.setItem("introSeen", "true");
-    onDone?.();
   };
 
   // Lock body scroll while intro is showing
@@ -56,23 +53,24 @@ export default function IntroAnimation({ onDone }) {
 
   useEffect(() => {
     if (!visible) return;
-    const min = setTimeout(() => setMinTimePassed(true), MIN_MS);
-    const max = setTimeout(() => finish(), MAX_MS);
-    return () => { clearTimeout(min); clearTimeout(max); };
+    const t = setTimeout(() => finish(), MIN_MS);
+    return () => clearTimeout(t);
   }, [visible]);
 
-  useEffect(() => {
-    if (!visible) return;
-    if (progress === 100 && minTimePassed) {
-      finish();
-    }
-  }, [progress, minTimePassed, visible]);
-
   return (
-    <AnimatePresence onExitComplete={() => { document.documentElement.style.backgroundColor = ""; }}>
+    <AnimatePresence
+      onExitComplete={() => {
+        document.documentElement.style.backgroundColor = "";
+        document.body.style.overflow = "";
+        onDone?.();
+      }}
+    >
       {visible && (
         // Background on the plain div so it's visible the instant the page loads — no flicker
-        <div
+        <motion.div
+          key="intro"
+          initial={{ opacity: 1 }}
+          exit={{ opacity: 0, transition: { duration: 0.45, ease: "easeInOut" } }}
           style={{
             position: "fixed",
             top: 0,
@@ -85,10 +83,8 @@ export default function IntroAnimation({ onDone }) {
           }}
         >
           <motion.div
-            key="intro"
             style={{ width: "100%", height: "100%" }}
             className="flex flex-col items-center justify-center"
-            exit={{ opacity: 0, transition: { duration: 0.9, ease: "easeInOut" } }}
           >
             {/* Ambient top glow */}
             <div
@@ -170,7 +166,7 @@ export default function IntroAnimation({ onDone }) {
             </motion.div>
 
           </motion.div>
-        </div>
+        </motion.div>
       )}
     </AnimatePresence>
   );

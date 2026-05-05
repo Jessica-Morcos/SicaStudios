@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -12,8 +12,6 @@ import Skills from "./components/Skills";
 import Projects from "./components/Projects";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
-import SocialSidebar from "./components/SocialSidebar";
-import SocialSidebarLeft from "./components/SocialSidebarLeft";
 
 import Huskd from "./components/Huskd";
 import Polaroid from "./components/Polaroid";
@@ -33,19 +31,10 @@ function ScrollToTop() {
 }
 
 function AppContent() {
-  const scrollY = useRef(0);
   const location = useLocation();
   const [introPlaying, setIntroPlaying] = React.useState(
     () => !sessionStorage.getItem("introSeen")
   );
-
-  useEffect(() => {
-    const handleScroll = () => {
-      scrollY.current = window.scrollY;
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   // Hide sidebars on project pages
   const hiddenRoutes = ["/huskd", "/polaroid", "/ribbitsrobots", "/sicastudios"];
@@ -58,12 +47,6 @@ function AppContent() {
   return (
     <div className="font-sans bg-white text-black relative">
       <IntroAnimation onDone={() => setIntroPlaying(false)} />
-      {!introPlaying && !hideSidebars && (
-        <>
-          <SocialSidebar />
-          <SocialSidebarLeft />
-        </>
-      )}
       {!introPlaying && <SwitcherBar />}
       <Navbar />
 
@@ -72,7 +55,7 @@ function AppContent() {
           path="/"
           element={
             <>
-              <Hero scrollY={scrollY} />
+              <Hero />
               <Skills />
               <Projects />
               <Contact />

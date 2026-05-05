@@ -48,66 +48,29 @@ export default function Contact() {
                 />
         </div>
 
-        {/* Right: Text */}
-        <div className="w-full md:w-1/2 portrait:p-[0.5rem] text-center portrait:mr-0 mr-[5rem]">
+        {/* Right: Text + Social Icons */}
+        <div className="w-full md:w-1/2 portrait:p-[0.5rem] text-center portrait:mr-0 mr-[5rem] flex flex-col items-center gap-6">
           <p className="text-gray-800 leading-[2.5rem] portrait:leading-[1.5rem] landscape:mr-[10rem] portrait:tracking-normal tracking-[0.25rem] portrait:text-[1.2rem] text-[1.4rem]">
             Got something in mind? <br/> I’m always up for talking tech, design, and ways to make experiences better.
           </p>
-         
-        </div>
-
-         <div className="landscape:hidden flex flex-row mt-[2rem] items-center h-full justify-center gap-0">
-                {/* Icons */}
-                <div className="flex flex-row items-center gap-[1rem] ">
-                  <a
-                    href="mailto:jessica.morcos7@gmail.com"
-                    className="hover:scale-110 transition-transform duration-200"
-                  >
-                    <div className="bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-shadow">
-                      <img
-                        src={MailIcon}
-                        alt="Mail"
-                        className="h-[2.5rem] w-[2.5rem] object-contain"
-                      />
-                    </div>
-                  </a>
-        
-                
-        
-                  <a
-                    href="https://linkedin.com/in/jessica-morcos"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hover:scale-110 transition-transform duration-200"
-                  >
-                    <div className="bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-shadow">
-                       <img
-                        src={LinkedinIcon}
-                        alt="LinkedinIcon"
-                        className="h-[2.5rem] w-[2.5rem] object-contain"
-                      />
-                    </div>
-                  </a>
-        
-                  <a
-                    href="https://github.com/jessica-morcos"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hover:scale-110 transition-transform duration-200"
-                  >
-                    <div className="bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-shadow">
-                        <img
-                        src={GithubIcon}
-                        alt="GitHub"
-                        className="h-[2.5rem] w-[2.5rem] object-contain"
-                      />
-                    </div>
-                  </a>
-                </div>
-        
-             
-                
+          <div className="flex flex-row items-center gap-[1rem]">
+            <a href="mailto:jessica.morcos7@gmail.com" className="hover:scale-110 transition-transform duration-200">
+              <div className="bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-shadow">
+                <img src={MailIcon} alt="Mail" className="h-[2.5rem] w-[2.5rem] object-contain" />
               </div>
+            </a>
+            <a href="https://linkedin.com/in/jessica-morcos" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform duration-200">
+              <div className="bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-shadow">
+                <img src={LinkedinIcon} alt="LinkedIn" className="h-[2.5rem] w-[2.5rem] object-contain" />
+              </div>
+            </a>
+            <a href="https://github.com/jessica-morcos" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform duration-200">
+              <div className="bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-shadow">
+                <img src={GithubIcon} alt="GitHub" className="h-[2.5rem] w-[2.5rem] object-contain" />
+              </div>
+            </a>
+          </div>
+        </div>
       </div>
 
  

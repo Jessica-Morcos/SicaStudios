@@ -1,7 +1,8 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
+import { LoopOnce, LoopRepeat } from "three";
 
-export default function PolaroidModel(props) {
+export default function PolaroidModel({ trigger = false, ...props }) {
   const group = useRef();
   const [hasEjected, setHasEjected] = useState(false);
   const { scene, animations } = useGLTF("/models/Polaroid_rig.glb");
@@ -14,44 +15,33 @@ export default function PolaroidModel(props) {
     
     if (idleAction) {
       idleAction.reset();
-      idleAction.setLoop(1, Infinity); // Loop forever
+      idleAction.setLoop(LoopRepeat, Infinity);
       idleAction.play();
     }
+
+    return () => {
+      idleAction?.stop();
+    };
   }, [actions]);
 
-  // Scroll-triggered photoEject
+  // Triggered by the section's IntersectionObserver instead of a scroll listener.
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const triggerPoint = 150;
+    if (!trigger || hasEjected || !actions) return;
 
-      if (scrollY > triggerPoint && !hasEjected && actions) {
-        const ejectAction = actions["photoEject"];
-        const idleAction = actions["CamIdle"];
+    const ejectAction = actions["photoEject"];
+    const idleAction = actions["CamIdle"];
 
-        if (ejectAction) {
-          if (idleAction) {
-            idleAction.stop();
-          }
-
-          ejectAction.reset();
-          ejectAction.setEffectiveWeight(1);
-          ejectAction.timeScale = 1;
-          ejectAction.setLoop(2, 1); // LoopOnce
-          ejectAction.clampWhenFinished = true;
-          ejectAction.play();
-
-          setHasEjected(true);
-        }
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    handleScroll();
-    
-    return () => window.removeEventListener("scroll", handleScroll);
-    
-  }, [actions, hasEjected]);
+    if (ejectAction) {
+      idleAction?.stop();
+      ejectAction.reset();
+      ejectAction.setEffectiveWeight(1);
+      ejectAction.timeScale = 1;
+      ejectAction.setLoop(LoopOnce, 1);
+      ejectAction.clampWhenFinished = true;
+      ejectAction.play();
+      setHasEjected(true);
+    }
+  }, [actions, hasEjected, trigger]);
 
 
   return (
@@ -60,4 +50,3 @@ export default function PolaroidModel(props) {
     </group>
   );
 }
-
