@@ -10,8 +10,8 @@ export default function SwitcherBar() {
     setTransitioning(true);
     setActive("developer");
     setTimeout(() => {
-      // window.open("https://jessicamorcos.com", "_blank");
-      window.open("http://localhost:5175/", "_blank");
+      window.open("https://jessicamorcos.com", "_blank");
+      
       setTimeout(() => {
         setActive("designer");
         setTransitioning(false);
