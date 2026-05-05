@@ -20,6 +20,7 @@ import Polaroid from "./components/Polaroid";
 import RibbitsRobots from "./components/RibbitsRobots";
 import SicaStudios from "./components/SS";
 import IntroAnimation from "./components/IntroAnimation";
+import SwitcherBar from "./components/SwitcherBar";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -61,6 +62,7 @@ function AppContent() {
         </>
       )}
 
+      <SwitcherBar />
       <Navbar />
 
       <Routes>

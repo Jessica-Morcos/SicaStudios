@@ -34,7 +34,6 @@ html, body {
   scroll-behavior: smooth;
   scrollbar-gutter: stable overlay; 
   overflow-x: hidden;
-  will-change: transform;
 }
 
 

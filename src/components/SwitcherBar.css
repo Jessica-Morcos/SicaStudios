@@ -1,0 +1,102 @@
+.mode-switcher {
+  --bg-secondary: rgba(28, 15, 47, 0.85);
+  --border: rgba(255, 255, 255, 0.12);
+  --shadow-md: rgba(0, 0, 0, 0.35);
+  --shadow-sm: rgba(0, 0, 0, 0.15);
+  --accent: #1c0f2f;
+  --text-dim: rgba(255, 255, 255, 0.55);
+}
+
+/* —— Floating pill positioned at bottom-center —— */
+.mode-switcher {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+}
+
+.mode-pill {
+  display: flex;
+  align-items: center;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 5px;
+  position: relative;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow:
+    0 8px 32px var(--shadow-md),
+    0 2px 8px var(--shadow-sm),
+    0 0 0 1px var(--border);
+  transition: box-shadow 0.3s;
+}
+
+/* —— Sliding background thumb —— */
+.mode-thumb {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 96px;
+  height: calc(100% - 10px);
+  background: var(--accent);
+  border-radius: 100px;
+  transition: transform 0.48s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
+}
+
+.mode-thumb.right {
+  transform: translateX(calc(96px + 40px));
+}
+
+/* —— Label buttons —— */
+.mode-option {
+  width: 96px;
+  text-align: center;
+  font-family: 'Intel One Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+  border: none;
+  background: none;
+  color: var(--text-dim);
+  cursor: pointer;
+  padding: 7px 0;
+  position: relative;
+  z-index: 1;
+  transition: color 0.3s;
+}
+
+.mode-option.active {
+  color: #fff;
+  font-weight: 600;
+}
+
+.mode-option:disabled {
+  cursor: default;
+}
+
+/* —— Separator —— */
+.mode-sep {
+  width: 40px;
+  text-align: center;
+  font-family: 'Intel One Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  position: relative;
+  z-index: 1;
+  pointer-events: none;
+  flex-shrink: 0;
+  letter-spacing: 0;
+}
+
+/* —— Mobile —— */
+@media (max-width: 480px) {
+  .mode-switcher { bottom: 20px; }
+
+  .mode-option { width: 80px; font-size: 0.68rem; }
+  .mode-sep    { width: 32px; font-size: 0.65rem; }
+
+  .mode-thumb       { width: 80px; }
+  .mode-thumb.right { transform: translateX(calc(80px + 32px)); }
+}

@@ -1,5 +1,5 @@
-import React, { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import React, { useRef, useState } from "react";
+import { motion, useDragControls, useInView } from "framer-motion";
 import { Link } from "react-router-dom";
 import GirlSVG from "../assets/JessGlasses.svg";
 import HuskdFront from "../assets/Cards/Huskd_F.svg";
@@ -12,15 +12,76 @@ import SS_F from "../assets/Cards/SS_F.svg";
 import SS_B from "../assets/Cards/SS_B.svg";
 import "./projects.css";
 
+function DraggableProjectCard({ project, index, boardRef }) {
+  const dragControls = useDragControls();
+  const [isDragging, setIsDragging] = useState(false);
+
+  return (
+    <motion.article
+      className={`project-polaroid ${isDragging ? "is-dragging" : ""}`}
+      drag
+      dragControls={dragControls}
+      dragListener={false}
+      dragConstraints={boardRef}
+      dragElastic={0.12}
+      dragMomentum={false}
+      onDragStart={() => setIsDragging(true)}
+      onDragEnd={() => setIsDragging(false)}
+      style={{
+        rotate: project.rotate,
+        zIndex: 10 + index,
+      }}
+      whileDrag={{
+        scale: 1.04,
+        rotate: 0,
+        zIndex: 40,
+      }}
+    >
+      <button
+        type="button"
+        className="project-drag-tag"
+        aria-label={`Drag ${project.title} project card`}
+        onPointerDown={(event) => dragControls.start(event)}
+      >
+        {project.title}
+      </button>
+
+      <Link
+        to={project.link}
+        className="flip-card project-click-card"
+        aria-label={`Open ${project.title} project`}
+      >
+        <div className="flip-inner">
+          <div className="flip-front flex items-center justify-center">
+            <img
+              src={project.front}
+              alt={`${project.title} front`}
+              className="w-full h-full object-cover rounded-[1rem]"
+            />
+          </div>
+          <div className="flip-back flex items-center justify-center">
+            <img
+              src={project.back}
+              alt={`${project.title} back`}
+              className="w-full h-full object-cover rounded-[1rem]"
+            />
+          </div>
+        </div>
+      </Link>
+    </motion.article>
+  );
+}
+
 export default function Projects() {
   const ref = useRef(null);
+  const boardRef = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   const projects = [
-    { front: HuskdFront, back: HuskdBack, link: "/Huskd" },
-    { front: SS_F, back: SS_B, link: "/sicastudios" },
-    { front: PolaroidFront, back: PolaroidBack, link: "/polaroid" },
-    { front: RibbitsFront, back: RibbitsBack, link: "/ribbitsrobots" },
+    { title: "Huskd", front: HuskdFront, back: HuskdBack, link: "/Huskd", rotate: -7 },
+    { title: "Sica Studios", front: SS_F, back: SS_B, link: "/sicastudios", rotate: 4 },
+    { title: "Polaroid", front: PolaroidFront, back: PolaroidBack, link: "/polaroid", rotate: -3 },
+    { title: "Ribbits", front: RibbitsFront, back: RibbitsBack, link: "/ribbitsrobots", rotate: 6 },
   ];
 
   return (
@@ -59,28 +120,25 @@ export default function Projects() {
      
       </div>
 
-      {/* ----- Cards Grid (Vertically Centered) ----- */}
-      <div className="flex flex-1 justify-center items-center">
-        <div className="grid grid-cols-4  portrait:grid-cols-1  gap-[5rem]">
+      {/* ----- Interactive Cards Board ----- */}
+      <div className="project-board-wrap">
+        <div className="project-instructions">
+          <span></span>
+          Hover
+          <strong>·</strong>
+          Drag
+          <strong>·</strong>
+          Click
+        </div>
+
+        <div ref={boardRef} className="project-board">
           {projects.map((p, i) => (
-            <Link key={i} to={p.link} className="flip-card w-[15rem] h-[20rem]">
-              <div className="flip-inner">
-                <div className="flip-front flex items-center justify-center">
-                  <img
-                    src={p.front}
-                    alt="front"
-                    className="w-full h-full object-cover rounded-[1rem]"
-                  />
-                </div>
-                <div className="flip-back flex items-center justify-center">
-                  <img
-                    src={p.back}
-                    alt="back"
-                    className="w-full h-full object-cover rounded-[1rem]"
-                  />
-                </div>
-              </div>
-            </Link>
+            <DraggableProjectCard
+              key={p.title}
+              project={p}
+              index={i}
+              boardRef={boardRef}
+            />
           ))}
         </div>
       </div>
