@@ -33,12 +33,18 @@ function TypeLine({ text, delayStart, className }) {
 const MIN_MS = 4400;
 const MAX_MS = 22000;
 
-export default function IntroAnimation() {
+export default function IntroAnimation({ onDone }) {
   const { progress } = useProgress();
   const [minTimePassed, setMinTimePassed] = useState(false);
   const [visible, setVisible] = useState(
     () => !sessionStorage.getItem("introSeen")
   );
+
+  const finish = () => {
+    setVisible(false);
+    sessionStorage.setItem("introSeen", "true");
+    onDone?.();
+  };
 
   // Lock body scroll while intro is showing
   useEffect(() => {
@@ -51,18 +57,14 @@ export default function IntroAnimation() {
   useEffect(() => {
     if (!visible) return;
     const min = setTimeout(() => setMinTimePassed(true), MIN_MS);
-    const max = setTimeout(() => {
-      setVisible(false);
-      sessionStorage.setItem("introSeen", "true");
-    }, MAX_MS);
+    const max = setTimeout(() => finish(), MAX_MS);
     return () => { clearTimeout(min); clearTimeout(max); };
   }, [visible]);
 
   useEffect(() => {
     if (!visible) return;
     if (progress === 100 && minTimePassed) {
-      setVisible(false);
-      sessionStorage.setItem("introSeen", "true");
+      finish();
     }
   }, [progress, minTimePassed, visible]);
 

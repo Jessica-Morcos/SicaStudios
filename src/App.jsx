@@ -35,6 +35,9 @@ function ScrollToTop() {
 function AppContent() {
   const scrollY = useRef(0);
   const location = useLocation();
+  const [introPlaying, setIntroPlaying] = React.useState(
+    () => !sessionStorage.getItem("introSeen")
+  );
 
   useEffect(() => {
     const handleScroll = () => {
@@ -54,15 +57,14 @@ function AppContent() {
 
   return (
     <div className="font-sans bg-white text-black relative">
-      <IntroAnimation />
-      {!hideSidebars && (
+      <IntroAnimation onDone={() => setIntroPlaying(false)} />
+      {!introPlaying && !hideSidebars && (
         <>
           <SocialSidebar />
           <SocialSidebarLeft />
         </>
       )}
-
-      <SwitcherBar />
+      {!introPlaying && <SwitcherBar />}
       <Navbar />
 
       <Routes>
